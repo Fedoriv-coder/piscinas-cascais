@@ -1,7 +1,68 @@
-// Traduções do site. O português é o texto original do HTML;
-// aqui ficam só o inglês e o russo, com a mesma chave usada em data-i18n.
+// Traduções do site. Nos textos fixos, o português é o texto original do HTML
+// e aqui ficam o inglês e o russo, com a mesma chave usada em data-i18n.
 const TRANSLATIONS = {
+  // Português só para os textos criados por JavaScript (portfólio).
+  pt: {
+    'nav.portfolio': 'Portfólio',
+    'pf.meta.title': 'Portfólio — Piscinas Cascais',
+    'pf.intro': 'Projetos de construção, renovação e manutenção de piscinas na zona de Cascais. Carregue num projeto para ver as fotos e os detalhes da obra.',
+    'pf.filter.all': 'Todos',
+    'pf.filter.construcao': 'Construção',
+    'pf.filter.renovacao': 'Renovação',
+    'pf.filter.manutencao': 'Manutenção',
+    'pf.example': 'Projeto exemplo',
+    'pf.example.note': 'Estes projetos são exemplos ilustrativos. As nossas obras reais vão aparecer aqui em breve.',
+    'pf.more': 'Ver projeto',
+    'pf.empty': 'Ainda não há projetos nesta categoria.',
+    'pj.back': '← Voltar ao portfólio',
+    'pj.specs': 'Características',
+    'pj.spec.dimensions': 'Dimensões (C × L × P)',
+    'pj.spec.filtration': 'Tipo de filtragem',
+    'pj.spec.finish': 'Revestimento',
+    'pj.spec.use': 'Utilização',
+    'pj.spec.location': 'Localização',
+    'pj.spec.duration': 'Duração',
+    'pj.gallery': 'Galeria',
+    'pj.gallery.hint': 'Carregue numa foto para a ver em tamanho grande.',
+    'pj.related': 'Outros projetos',
+    'pj.cta.title': 'Quer uma piscina assim?',
+    'pj.cta.text': 'Responda a um pequeno questionário e receba uma estimativa em menos de um minuto.',
+    'pj.cta.btn': 'Obter orçamento',
+    'pj.notfound': 'Projeto não encontrado.',
+    'lb.close': 'Fechar',
+    'lb.prev': 'Foto anterior',
+    'lb.next': 'Foto seguinte'
+  },
   en: {
+    'nav.portfolio': 'Portfolio',
+    'pf.meta.title': 'Portfolio — Piscinas Cascais',
+    'pf.intro': 'Pool construction, renovation and maintenance projects in the Cascais area. Click a project to see its photos and details.',
+    'pf.filter.all': 'All',
+    'pf.filter.construcao': 'Construction',
+    'pf.filter.renovacao': 'Renovation',
+    'pf.filter.manutencao': 'Maintenance',
+    'pf.example': 'Sample project',
+    'pf.example.note': 'These projects are illustrative examples. Our real builds will appear here soon.',
+    'pf.more': 'View project',
+    'pf.empty': 'No projects in this category yet.',
+    'pj.back': '← Back to portfolio',
+    'pj.specs': 'Specifications',
+    'pj.spec.dimensions': 'Dimensions (L × W × D)',
+    'pj.spec.filtration': 'Filtration type',
+    'pj.spec.finish': 'Finish',
+    'pj.spec.use': 'Use',
+    'pj.spec.location': 'Location',
+    'pj.spec.duration': 'Duration',
+    'pj.gallery': 'Gallery',
+    'pj.gallery.hint': 'Click a photo to see it full size.',
+    'pj.related': 'Other projects',
+    'pj.cta.title': 'Want a pool like this?',
+    'pj.cta.text': 'Answer a short questionnaire and get an estimate in under a minute.',
+    'pj.cta.btn': 'Get a quote',
+    'pj.notfound': 'Project not found.',
+    'lb.close': 'Close',
+    'lb.prev': 'Previous photo',
+    'lb.next': 'Next photo',
     'meta.title': 'Piscinas Cascais — Pool Construction and Renovation',
     'cta.float.build': 'Get a construction quote',
     'cta.float.maint': 'Get a maintenance quote',
@@ -55,6 +116,35 @@ const TRANSLATIONS = {
     'lang.label': 'Language'
   },
   ru: {
+    'nav.portfolio': 'Портфолио',
+    'pf.meta.title': 'Портфолио — Piscinas Cascais',
+    'pf.intro': 'Проекты строительства, ремонта и обслуживания бассейнов в районе Кашкайша. Нажмите на проект, чтобы увидеть фото и детали.',
+    'pf.filter.all': 'Все',
+    'pf.filter.construcao': 'Строительство',
+    'pf.filter.renovacao': 'Ремонт',
+    'pf.filter.manutencao': 'Обслуживание',
+    'pf.example': 'Пример проекта',
+    'pf.example.note': 'Эти проекты — иллюстративные примеры. Наши реальные работы скоро появятся здесь.',
+    'pf.more': 'Смотреть проект',
+    'pf.empty': 'В этой категории пока нет проектов.',
+    'pj.back': '← Назад к портфолио',
+    'pj.specs': 'Характеристики',
+    'pj.spec.dimensions': 'Размеры (Д × Ш × Г)',
+    'pj.spec.filtration': 'Тип фильтрации',
+    'pj.spec.finish': 'Отделка',
+    'pj.spec.use': 'Назначение',
+    'pj.spec.location': 'Расположение',
+    'pj.spec.duration': 'Срок',
+    'pj.gallery': 'Галерея',
+    'pj.gallery.hint': 'Нажмите на фото, чтобы увеличить.',
+    'pj.related': 'Другие проекты',
+    'pj.cta.title': 'Хотите такой бассейн?',
+    'pj.cta.text': 'Ответьте на несколько вопросов и получите расчёт меньше чем за минуту.',
+    'pj.cta.btn': 'Получить расчёт',
+    'pj.notfound': 'Проект не найден.',
+    'lb.close': 'Закрыть',
+    'lb.prev': 'Предыдущее фото',
+    'lb.next': 'Следующее фото',
     'meta.title': 'Piscinas Cascais — строительство и ремонт бассейнов',
     'cta.float.build': 'Рассчитать стоимость строительства',
     'cta.float.maint': 'Рассчитать стоимость обслуживания',
@@ -110,6 +200,12 @@ const TRANSLATIONS = {
 };
 
 const LANGS = ['pt', 'en', 'ru'];
+let currentLang = 'pt';
+
+// Texto traduzido para uso em JavaScript.
+function t(key, lang = currentLang) {
+  return TRANSLATIONS[lang]?.[key] ?? TRANSLATIONS.pt[key] ?? key;
+}
 const HTML_LANG = { pt: 'pt-PT', en: 'en', ru: 'ru' };
 
 function getSavedLang() {
@@ -134,7 +230,8 @@ function setLang(lang) {
 
   const titleEl = document.querySelector('title');
   if (titleEl.dataset.pt === undefined) titleEl.dataset.pt = document.title;
-  document.title = lang === 'pt' ? titleEl.dataset.pt : (dict['meta.title'] ?? titleEl.dataset.pt);
+  const titleKey = titleEl.dataset.i18nTitle || 'meta.title';
+  document.title = lang === 'pt' ? titleEl.dataset.pt : (dict[titleKey] ?? titleEl.dataset.pt);
 
   document.documentElement.lang = HTML_LANG[lang];
 
@@ -144,7 +241,15 @@ function setLang(lang) {
   const current = document.querySelector('[data-lang-current]');
   if (current) current.textContent = { pt: 'PT', en: 'ENG', ru: 'RUS' }[lang];
 
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    el.setAttribute('aria-label', t(el.dataset.i18nAria, lang));
+  });
+
   try { localStorage.setItem('lang', lang); } catch (e) {}
+
+  currentLang = lang;
+  // Avisa as páginas com conteúdo gerado por JavaScript (portfólio) para se redesenharem.
+  document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
 }
 
 function initLangMenu() {
