@@ -148,17 +148,20 @@ section{padding:52px 0}
 @media (max-width:640px){ .inline-cta{font-size:14.5px; padding:15px 20px} }
 
 /* Barra de topo */
-.topbar{position:sticky; top:0; z-index:90; background:#fff; border-bottom:1px solid var(--line); box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.topbar{position:sticky; top:0; z-index:90; background:var(--ink); border-bottom:1px solid rgba(255,255,255,.08); box-shadow:0 4px 18px rgba(0,0,0,.18); transition:transform .3s ease}
+/* Esconde a barra ao descer a página e mostra-a ao subir (ver site.js) */
+.topbar.is-hidden{transform:translateY(-100%)}
 .topbar-inner{max-width:1200px; margin-inline:auto; height:72px; padding-inline:24px; display:flex; align-items:center; justify-content:space-between; gap:16px}
-.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--teal-dark); font-weight:800; font-size:19px; letter-spacing:.02em; white-space:nowrap}
-.brand svg{width:30px; height:30px; stroke:var(--teal-dark); flex:none}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--teal); font-weight:800; font-size:19px; letter-spacing:.02em; white-space:nowrap}
+.brand svg{width:30px; height:30px; stroke:var(--teal); flex:none}
 .topbar-right{display:flex; align-items:center; gap:20px}
-.topbar-phone{display:flex; align-items:center; gap:8px; color:var(--ink); font-weight:700; font-size:16px; text-decoration:none; white-space:nowrap}
-.topbar-phone svg{width:18px; height:18px; stroke:var(--teal-dark); flex:none}
-.topbar-sep{width:1px; height:24px; background:var(--line)}
+.topbar-phone{display:flex; align-items:center; gap:8px; color:#fff; font-weight:700; font-size:16px; text-decoration:none; white-space:nowrap}
+.topbar-phone svg{width:18px; height:18px; stroke:var(--teal); flex:none}
+.topbar-phone:hover{color:var(--teal)}
+.topbar-sep{width:1px; height:24px; background:rgba(255,255,255,.15)}
 .lang{position:relative}
-.lang-btn{display:flex; align-items:center; gap:6px; background:none; border:1px solid transparent; border-radius:8px; padding:8px 10px; font:700 15px 'Manrope',sans-serif; color:var(--ink); cursor:pointer}
-.lang-btn:hover, .lang-btn[aria-expanded="true"]{border-color:var(--line); background:var(--panel)}
+.lang-btn{display:flex; align-items:center; gap:6px; background:none; border:1px solid transparent; border-radius:8px; padding:8px 10px; font:700 15px 'Manrope',sans-serif; color:#fff; cursor:pointer}
+.lang-btn:hover, .lang-btn[aria-expanded="true"]{border-color:rgba(255,255,255,.15); background:rgba(255,255,255,.08)}
 .lang-btn svg{width:18px; height:18px; stroke:currentColor; flex:none}
 .lang-btn .chev{width:14px; height:14px; transition:transform .15s}
 .lang-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
@@ -181,8 +184,8 @@ section{padding:52px 0}
 }
 
 /* Ligação "Portfólio" na barra de topo */
-.topbar-link{color:var(--ink); font-weight:700; font-size:15px; text-decoration:none; padding:8px 10px; border-radius:8px; white-space:nowrap}
-.topbar-link:hover, .topbar-link[aria-current="page"]{color:var(--teal-dark); background:var(--panel)}
+.topbar-link{color:#fff; font-weight:700; font-size:15px; text-decoration:none; padding:8px 10px; border-radius:8px; white-space:nowrap}
+.topbar-link:hover, .topbar-link[aria-current="page"]{color:var(--teal); background:rgba(255,255,255,.08)}
 @media (max-width:640px){ .topbar-link{font-size:13.5px; padding:8px 6px} }
 @media (max-width:380px){ .topbar-link{display:none} }
 
@@ -296,3 +299,4 @@ section{padding:52px 0}
 @media (prefers-reduced-motion: reduce){
   .inline-cta-soon::after, .float-right::after{animation:none; display:none}
 }
+@media (prefers-reduced-motion: reduce){ .topbar{transition:none} }

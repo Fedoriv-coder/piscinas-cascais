@@ -12,6 +12,7 @@ Site de construção, renovação e manutenção de piscinas na zona de Cascais.
 - `projetos.js` — **lista dos projetos do portfólio (é aqui que se acrescentam obras novas)**
 - `i18n.js` — traduções EN/RU
 - `styles.css` — estilos partilhados
+- `site.js` — comportamento da barra de topo (esconde ao descer, aparece ao subir)
 - `images/` — fotografias usadas nas páginas
 
 ## Ver localmente
