@@ -3,7 +3,6 @@
 // Para acrescentar uma obra nova, copie um bloco { ... } e altere:
 //   id        — nome curto, sem espaços nem acentos (aparece no endereço da página)
 //   category  — 'construcao', 'renovacao' ou 'manutencao'
-//   example   — true enquanto for um projeto de exemplo; apague a linha nas obras reais
 //   cover     — foto principal (na pasta images/)
 //   images    — fotos da galeria, pela ordem em que devem aparecer
 //   textos    — sempre em pt, en e ru
@@ -13,7 +12,6 @@ const PROJECTS = [
   {
     id: 'piscina-interior-10x4',
     category: 'construcao',
-    example: true,
     cover: 'images/publica.jpg',
     images: ['images/publica.jpg', 'images/casamaquinas.jpg', 'images/eletrolise.jpg', 'images/inox.jpg'],
     title: {
@@ -43,7 +41,6 @@ const PROJECTS = [
   {
     id: 'piscina-pedra-natural-12x3',
     category: 'construcao',
-    example: true,
     cover: 'images/ceramica.jpg',
     images: ['images/ceramica.jpg', 'images/tela.jpg', 'images/curtos.jpg', 'images/bombacalor.jpg'],
     title: {
@@ -73,7 +70,6 @@ const PROJECTS = [
   {
     id: 'condominio-25x12',
     category: 'construcao',
-    example: true,
     cover: 'images/privada.jpg',
     images: ['images/privada.jpg', 'images/inox.jpg', 'images/casamaquinas.jpg', 'images/enterrado.jpg'],
     title: {
@@ -103,7 +99,6 @@ const PROJECTS = [
   {
     id: 'renovacao-mosaico-8x4',
     category: 'renovacao',
-    example: true,
     cover: 'images/pastilha.jpg',
     images: ['images/novo.jpg', 'images/pastilha.jpg', 'images/renovacao.jpg', 'images/retos.jpg'],
     title: {
@@ -133,7 +128,6 @@ const PROJECTS = [
   {
     id: 'manutencao-anual-moradia',
     category: 'manutencao',
-    example: true,
     cover: 'images/diagonais.jpg',
     images: ['images/diagonais.jpg', 'images/retos.jpg', 'images/casamaquinas.jpg', 'images/eletrolise.jpg'],
     title: {
@@ -186,7 +180,6 @@ function projectCardHtml(p, lang) {
       <div class="pcard-img">
         <img src="${p.cover}" alt="${escapeHtml(pick(p.title, lang))}" loading="lazy">
         <span class="pcard-cat">${escapeHtml(t(CATEGORY_KEYS[p.category], lang))}</span>
-        ${p.example ? `<span class="pcard-example">${escapeHtml(t('pf.example', lang))}</span>` : ''}
       </div>
       <div class="pcard-body">
         <h3>${escapeHtml(pick(p.title, lang))}</h3>

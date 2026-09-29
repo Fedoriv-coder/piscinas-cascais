@@ -56,10 +56,8 @@
     <button class="filter-btn" type="button" data-filter="all" aria-pressed="true" data-i18n="pf.filter.all">Todos</button>
     <button class="filter-btn" type="button" data-filter="construcao" aria-pressed="false" data-i18n="pf.filter.construcao">Construção</button>
     <button class="filter-btn" type="button" data-filter="renovacao" aria-pressed="false" data-i18n="pf.filter.renovacao">Renovação</button>
-    <button class="filter-btn" type="button" data-filter="manutencao" aria-pressed="false" data-i18n="pf.filter.manutencao">Manutenção</button>
   </div>
 
-  <p class="example-note" id="example-note" data-i18n="pf.example.note" hidden>Estes projetos são exemplos ilustrativos. As nossas obras reais vão aparecer aqui em breve.</p>
 
   <div class="pgrid" id="project-grid"></div>
   <p class="empty-note" id="empty-note" data-i18n="pf.empty" hidden>Ainda não há projetos nesta categoria.</p>
@@ -99,7 +97,6 @@
     const list = PROJECTS.filter(p => activeFilter === 'all' || p.category === activeFilter);
     document.getElementById('project-grid').innerHTML = list.map(p => projectCardHtml(p, lang)).join('');
     document.getElementById('empty-note').hidden = list.length > 0;
-    document.getElementById('example-note').hidden = !PROJECTS.some(p => p.example);
   }
 
   document.querySelectorAll('.filter-btn').forEach(btn => {
