@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de Orçamento — Manutenção de Piscinas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --bg: #FFFFFF;
+    --ink: #16212B;
+    --ink-soft: #6B7785;
+    --accent: #0E9CAE;
+    --accent-dark: #0B7E8C;
+    --line: #E4E8EC;
+    --panel: #F7F9FA;
+    --ok: #2E9E6B;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh;
+    background:var(--bg); color:var(--ink);
+    font-family:'Manrope', system-ui, sans-serif; font-size:16px; line-height:1.6;
+    padding:36px 20px 40px;
+  }
+  h1,h2{font-family:'Fraunces',Georgia,serif; font-weight:600; margin:0; color:var(--ink)}
+  p{margin:0; color:var(--ink)}
+  .wrap{max-width:680px; margin-inline:auto}
+
+  .title{margin-bottom:32px; display:flex; align-items:center; gap:10px}
+  .title .badge{width:34px; height:34px; border-radius:9px; background:var(--accent); display:flex; align-items:center; justify-content:center; flex:none}
+  .title .badge svg{width:18px; height:18px}
+  .title h1{font-size:19px; font-weight:700}
+
+  .progress-wrap{margin-bottom:8px}
+  .count{font-size:13px; font-weight:700; color:var(--ink-soft); margin-bottom:24px}
+
+  .step{display:none}
+  .step.active{display:block}
+
+  .step-icon{
+    width:64px; height:64px; margin-bottom:18px; border-radius:16px;
+    background:var(--panel); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .step-icon svg{width:30px; height:30px; stroke:var(--accent-dark)}
+
+  .q{font-family:'Fraunces',serif; font-size:clamp(22px,3.2vw,30px); color:var(--ink); margin-bottom:24px; font-weight:600}
+
+  .choice-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .choice-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
+  @media (max-width:640px){ .choice-grid.cols-3{grid-template-columns:1fr 1fr} }
+  @media (max-width:480px){ .choice-grid{grid-template-columns:1fr} .choice-grid.cols-3{grid-template-columns:1fr} }
+  .choice{
+    border:1.5px solid var(--line); border-radius:14px; padding:16px 18px; cursor:pointer; text-align:left;
+    background:#fff; font-family:'Manrope',sans-serif; color:var(--ink); transition:all .15s; width:100%;
+  }
+  .choice:hover{border-color:var(--accent)}
+  .choice.selected{border-color:var(--accent); box-shadow:0 0 0 1.5px var(--accent) inset; background:color-mix(in srgb, var(--accent) 6%, #fff)}
+  .choice b{display:block; color:var(--ink); font-size:15.5px; font-weight:700}
+  .choice span{display:block; margin-top:4px; font-size:13px; color:var(--ink-soft)}
+
+  .choice.has-img{padding:0; overflow:hidden}
+  .choice.has-img img{width:100%; height:130px; object-fit:cover; display:block}
+  .choice.has-img .choice-label{padding:12px 16px 14px}
+  @media (max-width:480px){ .choice.has-img img{height:160px} }
+
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .field-row label, .field label{display:block; font-size:12.5px; color:var(--ink-soft); margin-bottom:6px; font-weight:600}
+  .hint{font-size:13.5px; color:var(--ink-soft); margin-top:-10px; margin-bottom:20px}
+
+  input[type="text"], input[type="tel"], input[type="email"], input[type="number"]{
+    width:100%; padding:13px 14px; border-radius:10px; border:1.5px solid var(--line);
+    background:#fff; color:var(--ink); font-family:'Manrope',sans-serif; font-size:15px;
+  }
+  input::placeholder{color:#9AA5AF}
+  input:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+
+  /* Bottom bar (static, in normal document flow) */
+  .bottombar{
+    background:#fff; border-top:1px solid var(--line);
+    margin-top:28px;
+    padding:16px 0 0;
+  }
+  .bottombar-inner{max-width:680px; margin-inline:auto}
+  .bottombar-label{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px}
+  .bottombar-label span{font-size:12.5px; font-weight:700; color:var(--ink-soft)}
+  .bottombar-label b{font-size:12.5px; font-weight:800; color:var(--accent-dark)}
+  .progress{height:6px; border-radius:999px; background:var(--line); overflow:hidden; margin-bottom:14px}
+  .progress-fill{height:100%; background:var(--accent); border-radius:999px; transition:width .25s ease; width:11%}
+  .bottombar-row{display:flex; align-items:center; gap:12px}
+  .back-circle{
+    width:44px; height:44px; border-radius:50%; border:1.5px solid var(--line); background:#fff;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; flex:none; padding:0;
+  }
+  .back-circle svg{width:18px; height:18px; stroke:var(--ink)}
+  .back-circle:disabled{opacity:.35; cursor:default}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px;
+    padding:14px 26px; font-weight:800; font-size:15px; text-decoration:none; flex:1;
+    border:1px solid transparent; cursor:pointer; font-family:'Manrope',sans-serif;
+    background:var(--accent); color:#fff;
+  }
+  .btn:active{transform:translateY(1px)}
+
+  .result-label{font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-dark)}
+  .result-value{font-family:'Fraunces',serif; font-size:clamp(32px,5vw,44px); margin-top:12px; color:var(--ink); font-variant-numeric:tabular-nums}
+  .result-sub{margin-top:6px; font-size:14.5px; color:var(--ink-soft); font-variant-numeric:tabular-nums}
+  .result-note{margin-top:12px; font-size:14.5px; color:var(--ink-soft); line-height:1.5}
+  .breakdown{margin-top:26px; display:flex; flex-direction:column; gap:10px}
+  .row{display:flex; justify-content:space-between; font-size:14px; border-top:1px solid var(--line); padding-top:10px; color:var(--ink)}
+  .row span:last-child{font-variant-numeric:tabular-nums; font-weight:700}
+  .row.row-discount span:last-child{color:var(--ok)}
+  .row.row-total{font-size:15.5px; font-weight:800; border-top:1.5px solid var(--ink)}
+  .row.row-total span:last-child{font-weight:800}
+  .discount{display:inline-block; background:var(--ok); color:#fff; font-weight:800; font-size:12.5px; padding:7px 14px; border-radius:999px; margin-bottom:18px}
+  .disclaimer{margin-top:20px; font-size:12.5px; color:var(--ink-soft); line-height:1.5}
+
+  .wiz-error{
+    margin-top:18px; padding:13px 16px; border-radius:10px;
+    background:#FEF2F2; color:#B42318; border:1px solid #FCA5A5;
+    font-size:14px; font-weight:700; display:none;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="title">
+    <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12c0 4.4-4 7-9 7s-9-2.6-9-7 4-9 9-9 9 4.6 9 9z"/><path d="M8 12c1 1.3 2 1.3 3 0s2-1.3 3 0 2 1.3 3 0"/></svg></div>
+    <h1>Cálculo do custo de manutenção da piscina</h1>
+  </div>
+
+  <form id="wiz-form">
+    <div class="step active" data-step="1">
+      <p class="count">Passo 1 de 9</p>
+      <p class="q">Qual a finalidade da piscina?</p>
+      <div class="choice-grid" data-group="finalidade">
+        <button type="button" class="choice has-img" data-val="privada"><img src="images/privada.jpg" alt="Piscina privada"><div class="choice-label"><b>Privada</b><span>Para uso doméstico / familiar</span></div></button>
+        <button type="button" class="choice has-img" data-val="publica"><img src="images/publica.jpg" alt="Piscina pública"><div class="choice-label"><b>Pública</b><span>Condomínio, hotel, ginásio, etc.</span></div></button>
+      </div>
+    </div>
+
+    <div class="step" data-step="2">
+      <p class="count">Passo 2 de 9</p>
+      <p class="q">Que tipo de revestimento tem a piscina?</p>
+      <div class="choice-grid cols-3" data-group="revestimento">
+        <button type="button" class="choice has-img" data-val="ceramica"><img src="images/ceramica.jpg" alt="Revestimento cerâmica"><div class="choice-label"><b>Cerâmica</b></div></button>
+        <button type="button" class="choice has-img" data-val="pastilha"><img src="images/pastilha.jpg" alt="Revestimento pastilha / mosaico"><div class="choice-label"><b>Pastilha (mosaico)</b></div></button>
+        <button type="button" class="choice has-img" data-val="tela"><img src="images/tela.jpg" alt="Membrana armada (tela)"><div class="choice-label"><b>Membrana armada (tela)</b></div></button>
+      </div>
+    </div>
+
+    <div class="step" data-step="3">
+      <p class="count">Passo 3 de 9</p>
+      <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+      <p class="q">Em que estado está a piscina atualmente?</p>
+      <div class="choice-grid" data-group="estado">
+        <button type="button" class="choice" data-val="cuidada"><b>Bem cuidada</b><span>Manutenção regular, água limpa</span></button>
+        <button type="button" class="choice" data-val="recuperacao"><b>Precisa de recuperação</b><span>Água verde, calcário, muito tempo parada</span></button>
+      </div>
+    </div>
+
+    <div class="step" data-step="4">
+      <p class="count">Passo 4 de 9</p>
+      <p class="q">Quais as dimensões da piscina?</p>
+      <p class="hint">Em metros — ex.: uma piscina normal de família ronda os 8 × 4 m</p>
+      <div class="field-row">
+        <div><label>Comprimento (m)</label><input type="number" id="comprimento" value="8" min="2" max="25" step="0.5"></div>
+        <div><label>Largura (m)</label><input type="number" id="largura" value="4" min="1.5" max="15" step="0.5"></div>
+      </div>
+    </div>
+
+    <div class="step" data-step="5">
+      <p class="count">Passo 5 de 9</p>
+      <p class="q">Qual a profundidade média da piscina?</p>
+      <p class="hint">Escreva em metros — ex.: 1,4</p>
+      <div><label>Profundidade (m)</label><input type="number" id="profundidade" value="1.3" min="0.8" max="3" step="0.1"></div>
+    </div>
+
+    <div class="step" data-step="6">
+      <p class="count">Passo 6 de 9</p>
+      <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+      <p class="q">Em que localidade fica a piscina?</p>
+      <input type="text" id="localidade" placeholder="Ex.: Cascais">
+    </div>
+
+    <div class="step" data-step="7">
+      <p class="count">Passo 7 de 9</p>
+      <p class="q">A piscina tem sistema de eletrólise de sal?</p>
+      <div class="choice-grid" data-group="eletrolise">
+        <button type="button" class="choice has-img" data-val="sim"><img src="images/eletrolise.jpg" alt="Sistema de eletrólise de sal"><div class="choice-label"><b>Sim</b><span>Manutenção mais barata</span></div></button>
+        <button type="button" class="choice" data-val="nao"><b>Não</b><span>Cloro tradicional</span></button>
+      </div>
+    </div>
+
+    <div class="step" data-step="8">
+      <p class="count">Passo 8 de 9</p>
+      <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
+      <p class="q">Com que frequência quer as visitas de manutenção?</p>
+      <div class="choice-grid" data-group="frequencia">
+        <button type="button" class="choice" data-val="quinzenal"><b>De 15 em 15 dias</b><span>Ideal para quem usa a piscina com moderação</span></button>
+        <button type="button" class="choice" data-val="semanal"><b>Semanal</b><span>Recomendado para uso intensivo</span></button>
+      </div>
+    </div>
+
+    <div class="step" data-step="9">
+      <p class="count">Passo 9 de 9</p>
+      <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+      <p class="q">Onde lhe enviamos a estimativa?</p>
+      <p class="hint">Preencha os seus dados para receber já a sua estimativa de manutenção.</p>
+      <div style="display:flex; flex-direction:column; gap:14px">
+        <input type="text" id="w-nome" placeholder="Nome" required>
+        <input type="tel" id="w-tel" placeholder="Telefone" required>
+        <input type="email" id="w-email" placeholder="Email" required>
+      </div>
+    </div>
+  </form>
+
+  <div id="wiz-error" class="wiz-error"></div>
+
+  <div id="wiz-result" style="display:none">
+    <p class="result-label">A sua estimativa de manutenção</p>
+    <p class="result-value" id="w-result-value">45€ – 65€ /mês</p>
+    <p class="result-sub" id="w-result-sub">Mensalidade estimada, com visitas incluídas</p>
+    <p class="result-note" id="w-result-note">Piscina de 32 m² — valor indicativo, sem visita ao local.</p>
+    <div class="breakdown" id="w-result-breakdown"></div>
+    <p class="disclaimer">Estimativa automática — o valor final só fica fechado após visita técnica ao local. O nosso departamento técnico entrará em contacto consigo brevemente para confirmar os detalhes e enviar o orçamento oficial.</p>
+  </div>
+
+  <div class="bottombar" id="bottombar">
+    <div class="bottombar-inner">
+      <div class="bottombar-label"><span>Preparar:</span><b id="progress-pct">11%</b></div>
+      <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="bottombar-row">
+        <button type="button" class="back-circle" id="back-btn" disabled aria-label="Voltar">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="btn" id="next-btn">Seguinte →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var wiz = { step: 1, answers: {} };
+
+  var SEQ = [1,2,3,4,5,6,7,8,9];
+
+  function currentSequence(){ return SEQ; }
+
+  // TROCAR quando tiveres o Form ID do Formspree (formspree.io) — ex: "xayzabcd"
+  var FORMSPREE_ENDPOINT = "https://formspree.io/f/mvkgajoy";
+
+  function sendLead(a){
+    if (FORMSPREE_ENDPOINT.indexOf("SUBSTITUIR_ID") !== -1) return; // ainda não configurado
+    fetch(FORMSPREE_ENDPOINT, {
+      method: "POST",
+      headers: { "Accept": "application/json", "Content-Type": "application/json" },
+      body: JSON.stringify(a)
+    }).catch(function(){ /* falha silenciosa — não bloqueia a experiência do utilizador */ });
+  }
+
+  function fmt(n){
+    n = Math.round(n / 5) * 5;
+    return n.toLocaleString("pt-PT") + "€";
+  }
+  function updateProgress(){
+    var seq = currentSequence();
+    var idx = seq.indexOf(wiz.step);
+    if (idx === -1) idx = 0;
+    var total = seq.length;
+    var pct = Math.round((idx + 1) / total * 100);
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-pct").textContent = pct + "%";
+    document.getElementById("back-btn").disabled = idx === 0;
+    document.getElementById("next-btn").textContent = idx === total - 1 ? "Ver o meu orçamento" : "Seguinte →";
+
+    var countEl = document.querySelector('.step[data-step="' + wiz.step + '"] .count');
+    if (countEl) countEl.textContent = "Passo " + (idx + 1) + " de " + total;
+  }
+  function goToStep(n){
+    document.querySelectorAll(".step").forEach(function(el){
+      el.classList.toggle("active", parseInt(el.getAttribute("data-step"),10) === n);
+    });
+    wiz.step = n;
+    updateProgress();
+    hideError();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function showError(msg){
+    var el = document.getElementById("wiz-error");
+    el.textContent = msg;
+    el.style.display = "block";
+    el.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+  function hideError(){
+    document.getElementById("wiz-error").style.display = "none";
+  }
+
+  document.querySelectorAll(".choice-grid").forEach(function(grid){
+    var group = grid.getAttribute("data-group");
+    grid.querySelectorAll(".choice").forEach(function(card){
+      card.addEventListener("click", function(){
+        grid.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("selected"); });
+        card.classList.add("selected");
+        wiz.answers[group] = card.getAttribute("data-val");
+        hideError();
+      });
+    });
+  });
+
+  function currentGroup(){
+    var stepEl = document.querySelector('.step[data-step="' + wiz.step + '"]');
+    var grid = stepEl.querySelector(".choice-grid");
+    return grid ? grid.getAttribute("data-group") : null;
+  }
+
+  function saveManualFields(){
+    if (wiz.step === 4){
+      wiz.answers.comprimento = parseFloat(document.getElementById("comprimento").value) || 8;
+      wiz.answers.largura = parseFloat(document.getElementById("largura").value) || 4;
+    }
+    if (wiz.step === 5){
+      wiz.answers.profundidade = parseFloat(document.getElementById("profundidade").value) || 1.3;
+    }
+    if (wiz.step === 6){
+      wiz.answers.localidade = document.getElementById("localidade").value || "";
+    }
+  }
+
+  document.getElementById("back-btn").addEventListener("click", function(){
+    var seq = currentSequence();
+    var idx = seq.indexOf(wiz.step);
+    if (idx > 0) goToStep(seq[idx - 1]);
+  });
+
+  document.getElementById("next-btn").addEventListener("click", function(){
+    var group = currentGroup();
+    if (group && !wiz.answers[group]){
+      showError("Escolha uma opção para continuar.");
+      return;
+    }
+    saveManualFields();
+
+    var seq = currentSequence();
+    var idx = seq.indexOf(wiz.step);
+    var isLast = idx === seq.length - 1;
+
+    if (isLast){
+      var nome = document.getElementById("w-nome").value.trim();
+      var tel = document.getElementById("w-tel").value.trim();
+      var email = document.getElementById("w-email").value.trim();
+      if (!nome || !tel || !email){
+        showError("Preencha nome, telefone e email para ver a sua estimativa.");
+        return;
+      }
+      wiz.answers.nome = nome; wiz.answers.tel = tel; wiz.answers.email = email;
+      sendLead(wiz.answers);
+      showResult();
+      return;
+    }
+    goToStep(seq[idx + 1]);
+  });
+
+  // Valores calibrados com base em preços médios/baixos de mercado em Portugal (2026) —
+  // posicionamento propositadamente competitivo, não valores de topo de gama.
+  // €/m² por mês. Quem tem eletrólise de sal paga menos (menos químicos, menos trabalho);
+  // quem não tem eletrólise paga o valor normal (sem desconto).
+  var RATE = {
+    quinzenal: { comEletrolise: [2.3, 3.3], semEletrolise: [2.9, 4.1] },
+    semanal:   { comEletrolise: [4.0, 5.6], semEletrolise: [5.0, 6.9] }
+  };
+  var FINALIDADE_MULT = { privada: 1.0, publica: 1.3 };
+  var REVESTIMENTO_MULT = { ceramica: 1.05, pastilha: 1.1, tela: 1.0 };
+  var ESTADO_LABEL = { recuperacao: "Limpeza de recuperação inicial (1.ª visita)" };
+  var ESTADO_COST = { recuperacao: [150, 350] };
+  var FREQ_LABEL = { quinzenal: "de 15 em 15 dias", semanal: "semanais" };
+
+  function profundidadeMult(p){
+    if (p <= 1.3) return 1.0;
+    if (p <= 1.7) return 1.08;
+    return 1.15;
+  }
+
+  function showResult(){
+    var a = wiz.answers;
+    var comp = Math.max(2, Math.min(25, a.comprimento || 8));
+    var larg = Math.max(1.5, Math.min(15, a.largura || 4));
+    var area = comp * larg;
+    var prof = Math.max(0.8, Math.min(3, a.profundidade || 1.3));
+
+    var freq = a.frequencia === "semanal" ? "semanal" : "quinzenal";
+    var eletroliseKey = a.eletrolise === "sim" ? "comEletrolise" : "semEletrolise";
+    var rateRange = RATE[freq][eletroliseKey];
+
+    var finMult = FINALIDADE_MULT[a.finalidade] || 1.0;
+    var revMult = REVESTIMENTO_MULT[a.revestimento] || 1.0;
+    var profMult = profundidadeMult(prof);
+    var mult = finMult * revMult * profMult;
+
+    var monthlyMin = area * rateRange[0] * mult;
+    var monthlyMax = area * rateRange[1] * mult;
+
+    var rows = [];
+    rows.push(["Mensalidade de manutenção (" + FREQ_LABEL[freq] + ")", monthlyMin, monthlyMax]);
+
+    var oneOffMin = 0, oneOffMax = 0;
+    if (a.estado === "recuperacao"){
+      var estadoCost = ESTADO_COST.recuperacao;
+      rows.push([ESTADO_LABEL.recuperacao, estadoCost[0], estadoCost[1]]);
+      oneOffMin = estadoCost[0]; oneOffMax = estadoCost[1];
+    }
+
+    document.getElementById("w-result-value").textContent = fmt(monthlyMin) + " – " + fmt(monthlyMax) + " /mês";
+    document.getElementById("w-result-sub").textContent =
+      a.eletrolise === "sim"
+        ? "Mensalidade com desconto por ter eletrólise de sal"
+        : "Mensalidade com manutenção à base de cloro";
+    document.getElementById("w-result-note").textContent =
+      "Piscina de " + (Math.round(area*10)/10).toLocaleString("pt-PT") + " m², profundidade " + prof.toLocaleString("pt-PT") + " m" +
+      (a.localidade ? " em " + a.localidade : "") +
+      " — valor indicativo, sem visita ao local.";
+
+    var breakdownEl = document.getElementById("w-result-breakdown");
+    breakdownEl.innerHTML = "";
+    rows.forEach(function(r){
+      var div = document.createElement("div");
+      div.className = "row";
+      div.innerHTML = "<span>" + r[0] + "</span><span>" + fmt(r[1]) + " – " + fmt(r[2]) + "</span>";
+      breakdownEl.appendChild(div);
+    });
+
+    if (oneOffMax > 0){
+      var totalDiv = document.createElement("div");
+      totalDiv.className = "row row-total";
+      totalDiv.innerHTML = "<span>Total no 1.º mês</span><span>" + fmt(monthlyMin + oneOffMin) + " – " + fmt(monthlyMax + oneOffMax) + "</span>";
+      breakdownEl.appendChild(totalDiv);
+    }
+
+    document.getElementById("wiz-form").style.display = "none";
+    document.getElementById("bottombar").style.display = "none";
+    document.getElementById("wiz-result").style.display = "block";
+  }
+
+  updateProgress();
+})();
+</script>
+
+</body></html>
