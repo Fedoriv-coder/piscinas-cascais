@@ -115,10 +115,6 @@
     const specs = SPEC_ORDER.filter(k => project.specs[k]).map(k => `
       <div class="row"><dt>${t('pj.spec.' + k, lang)}</dt><dd>${escapeHtml(pick(project.specs[k], lang))}</dd></div>`).join('');
 
-    const thumbs = project.images.map((src, i) => `
-      <button class="pj-thumb" type="button" data-index="${i}">
-        <img src="${src}" alt="${escapeHtml(title)} — ${i + 1}" loading="lazy">
-      </button>`).join('');
 
     const related = PROJECTS.filter(p => p.id !== project.id)
       .sort((a, b) => (b.category === project.category) - (a.category === project.category))
@@ -131,7 +127,7 @@
         <h1>${escapeHtml(title)}</h1>
       </div>
 
-      <button class="pj-cover" type="button" data-index="${Math.max(0, project.images.indexOf(project.cover))}">
+      <button class="pj-cover" type="button" data-index="0">
         <img src="${project.cover}" alt="${escapeHtml(title)}">
       </button>
 
@@ -143,11 +139,6 @@
         </aside>
       </div>
 
-      <div class="pj-gallery-head">
-        <h2>${t('pj.gallery', lang)}</h2>
-        <p>${t('pj.gallery.hint', lang)}</p>
-      </div>
-      <div class="pj-gallery">${thumbs}</div>
 
       <div class="pj-cta">
         <div>
@@ -166,7 +157,7 @@
       el.addEventListener('click', () => openLightbox(Number(el.dataset.index))));
   }
 
-  // Galeria ampliada: setas, teclado e deslizar no telemóvel.
+  // Foto principal ampliada.
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lb-img');
   const lbCount = document.getElementById('lb-count');
@@ -174,14 +165,16 @@
   let lastFocus = null;
 
   function showImage(i) {
-    const n = project.images.length;
+    const photos = [project.cover];
+    const n = photos.length;
     lbIndex = (i + n) % n;
-    lbImg.src = project.images[lbIndex];
+    lbImg.src = photos[lbIndex];
     lbImg.alt = `${pick(project.title, currentLang)} — ${lbIndex + 1}`;
     lbCount.textContent = `${lbIndex + 1} / ${n}`;
     const single = n < 2;
     lb.querySelector('.lb-prev').hidden = single;
     lb.querySelector('.lb-next').hidden = single;
+    lbCount.hidden = single;
   }
   function openLightbox(i) {
     lastFocus = document.activeElement;

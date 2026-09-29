@@ -4,7 +4,6 @@
 //   id        — nome curto, sem espaços nem acentos (aparece no endereço da página)
 //   category  — 'construcao', 'renovacao' ou 'manutencao'
 //   cover     — foto principal (na pasta images/)
-//   images    — fotos da galeria, pela ordem em que devem aparecer
 //   textos    — sempre em pt, en e ru
 //
 // A ordem da lista é a ordem no portfólio: a primeira obra aparece primeiro.
@@ -13,7 +12,6 @@ const PROJECTS = [
     id: 'piscina-interior-10x4',
     category: 'construcao',
     cover: 'images/publica.jpg',
-    images: ['images/publica.jpg', 'images/casamaquinas.jpg', 'images/eletrolise.jpg', 'images/inox.jpg'],
     title: {
       pt: 'Piscina interior, 10 × 4 m',
       en: 'Indoor pool, 10 × 4 m',
@@ -42,7 +40,6 @@ const PROJECTS = [
     id: 'piscina-pedra-natural-12x3',
     category: 'construcao',
     cover: 'images/ceramica.jpg',
-    images: ['images/ceramica.jpg', 'images/tela.jpg', 'images/curtos.jpg', 'images/bombacalor.jpg'],
     title: {
       pt: 'Piscina em pedra natural, 12 × 3 m',
       en: 'Natural stone pool, 12 × 3 m',
@@ -71,7 +68,6 @@ const PROJECTS = [
     id: 'condominio-25x12',
     category: 'construcao',
     cover: 'images/privada.jpg',
-    images: ['images/privada.jpg', 'images/inox.jpg', 'images/casamaquinas.jpg', 'images/enterrado.jpg'],
     title: {
       pt: 'Piscina de condomínio, 25 × 12 m',
       en: 'Residential complex pool, 25 × 12 m',
@@ -100,7 +96,6 @@ const PROJECTS = [
     id: 'renovacao-mosaico-8x4',
     category: 'renovacao',
     cover: 'images/pastilha.jpg',
-    images: ['images/novo.jpg', 'images/pastilha.jpg', 'images/renovacao.jpg', 'images/retos.jpg'],
     title: {
       pt: 'Renovação com mosaico, 8 × 4 m',
       en: 'Mosaic renovation, 8 × 4 m',
@@ -129,7 +124,6 @@ const PROJECTS = [
     id: 'manutencao-anual-moradia',
     category: 'manutencao',
     cover: 'images/diagonais.jpg',
-    images: ['images/diagonais.jpg', 'images/retos.jpg', 'images/casamaquinas.jpg', 'images/eletrolise.jpg'],
     title: {
       pt: 'Manutenção anual de moradia',
       en: 'Annual maintenance for a villa',
