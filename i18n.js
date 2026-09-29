@@ -110,9 +110,11 @@ const TRANSLATIONS = {
     'maint.port.p': 'As soon as we start regular maintenance on pools, the real cases will appear here.',
     'footer.tagline': 'We build high-quality pools in Cascais and the surrounding area.',
     'footer.contacts': 'Contacts',
-    'footer.hours.title': 'Working hours',
-    'footer.hours': 'Monday – Sunday: 07:00 – 19:00',
-    'footer.bottom': '© 2026 Piscinas Cascais. Prototype in development.',
+    'footer.hours.title': 'Opening hours',
+    'footer.bottom': '© 2026 Piscinas Cascais. All rights reserved.',
+    'footer.area': 'Cascais and surrounding area',
+    'footer.days': 'Monday to Sunday',
+    'footer.home': 'Home',
     'lang.label': 'Language'
   },
   ru: {
@@ -193,8 +195,10 @@ const TRANSLATIONS = {
     'footer.tagline': 'Строим качественные бассейны в Кашкайше и окрестностях.',
     'footer.contacts': 'Контакты',
     'footer.hours.title': 'Часы работы',
-    'footer.hours': 'Понедельник – воскресенье: 07:00 – 19:00',
-    'footer.bottom': '© 2026 Piscinas Cascais. Прототип в разработке.',
+    'footer.bottom': '© 2026 Piscinas Cascais. Все права защищены.',
+    'footer.area': 'Кашкайш и окрестности',
+    'footer.days': 'Понедельник – воскресенье',
+    'footer.home': 'Главная',
     'lang.label': 'Язык'
   }
 };
