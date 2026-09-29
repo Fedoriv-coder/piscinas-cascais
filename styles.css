@@ -254,3 +254,21 @@ footer a{color:var(--ink-soft); text-decoration:underline}
   .lb-prev{left:8px} .lb-next{right:8px}
   .lb-img{max-width:100vw; border-radius:0}
 }
+
+/* Brilho nos botões amarelos: uma faixa de luz atravessa o botão de 3 em 3 segundos */
+.inline-cta:not(.inline-cta-soon), .float-left{position:relative; overflow:hidden}
+.float-left{position:fixed}
+.inline-cta:not(.inline-cta-soon)::after, .float-left::after{
+  content:""; position:absolute; top:-30px; bottom:-30px; left:-60%; width:45px;
+  background:linear-gradient(90deg, rgba(255,255,255,.1), rgba(255,255,255,.65));
+  transform:skewX(-22deg); pointer-events:none;
+  animation:shine 3s ease infinite;
+}
+@keyframes shine{
+  0%{left:-60%}
+  60%{left:110%}
+  100%{left:130%}
+}
+@media (prefers-reduced-motion: reduce){
+  .inline-cta::after, .float-left::after{animation:none; display:none}
+}
