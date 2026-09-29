@@ -25,7 +25,7 @@ const PROJECTS = [
     description: {
       pt: 'Construímos esta piscina interior de raiz, numa cave com parede de pedra. A estrutura é em betão armado, revestida a mosaico de vidro. A casa das máquinas ficou num compartimento técnico ao lado, com filtragem por areia e tratamento automático por eletrólise de sal. A iluminação LED embutida e a desumidificação do espaço permitem usar a piscina durante todo o ano.',
       en: 'We built this indoor pool from scratch, in a basement with a stone wall. The structure is reinforced concrete with a glass mosaic finish. The plant room sits in a technical area next door, with sand filtration and automatic salt electrolysis. Built-in LED lighting and room dehumidification make the pool usable all year round.',
-      ru: 'Этот крытый бассейн мы построили с нуля в цокольном этаже с каменной стеной. Конструкция из монолитного железобетона, отделка — стеклянная мозаика. Техническое помещение расположено рядом: песочная фильтрация и автоматическая обработка воды солевым электролизом. Встроенная LED-подсветка и осушение воздуха позволяют пользоваться бассейном круглый год.'
+      ru: 'Этот крытый бассейн мы построили с нуля в цокольном этаже с каменной стеной. Конструкция из монолитного железобетона, отделка из стеклянной мозаики. Техническое помещение расположено рядом: песочная фильтрация и автоматическая обработка воды солевым электролизом. Встроенная LED-подсветка и осушение воздуха позволяют пользоваться бассейном круглый год.'
     },
     specs: {
       dimensions: '10 × 4 × 1,5 m',
@@ -53,7 +53,7 @@ const PROJECTS = [
     description: {
       pt: 'Uma piscina de nado com 12 metros, pensada para treinar todos os dias. O revestimento em pedra natural dá à água um tom verde-escuro e integra a piscina no jardim. Tem degraus de entrada em toda a largura, bomba de calor para prolongar a época de banhos e iluminação LED para uso ao fim do dia.',
       en: 'A 12-metre lap pool designed for daily training. The natural stone finish gives the water a deep green tone and blends the pool into the garden. It has full-width entry steps, a heat pump to extend the swimming season and LED lighting for evening use.',
-      ru: 'Бассейн длиной 12 метров для ежедневных тренировок. Отделка из натурального камня придаёт воде глубокий зелёный оттенок и вписывает бассейн в сад. Входные ступени во всю ширину, тепловой насос продлевает купальный сезон, LED-подсветка — для вечернего плавания.'
+      ru: 'Бассейн длиной 12 метров для ежедневных тренировок. Отделка из натурального камня придаёт воде глубокий зелёный оттенок и вписывает бассейн в сад. Входные ступени во всю ширину, тепловой насос продлевает купальный сезон, LED-подсветка для вечернего плавания.'
     },
     specs: {
       dimensions: '12 × 3 × 1,4 m',
@@ -137,7 +137,7 @@ const PROJECTS = [
     description: {
       pt: 'Contrato de manutenção anual para a piscina de uma moradia. No verão visitamos todas as semanas e no inverno de 15 em 15 dias. Em cada visita limpamos o fundo e as paredes, verificamos o pH e o cloro, lavamos o filtro e revemos a bomba e a eletrólise. O cliente recebe um pequeno relatório depois de cada visita.',
       en: 'An annual maintenance contract for a villa pool. We visit every week in summer and every two weeks in winter. Each visit includes cleaning the floor and walls, checking pH and chlorine, backwashing the filter and inspecting the pump and electrolysis unit. The client receives a short report after every visit.',
-      ru: 'Годовой договор на обслуживание бассейна виллы. Летом приезжаем каждую неделю, зимой — раз в две недели. Во время визита чистим дно и стены, проверяем pH и хлор, промываем фильтр, осматриваем насос и электролизёр. После каждого визита клиент получает краткий отчёт.'
+      ru: 'Годовой договор на обслуживание бассейна виллы. Летом приезжаем каждую неделю, зимой раз в две недели. Во время визита чистим дно и стены, проверяем pH и хлор, промываем фильтр, осматриваем насос и электролизёр. После каждого визита клиент получает краткий отчёт.'
     },
     specs: {
       dimensions: '9 × 4 × 1,6 m',

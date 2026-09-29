@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title data-i18n-title="pf.meta.title">Projeto — Piscinas Cascais</title>
+<title data-i18n-title="pf.meta.title">Projeto | Piscinas Cascais</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -110,7 +110,7 @@
       return;
     }
     const title = pick(project.title, lang);
-    document.title = `${title} — Piscinas Cascais`;
+    document.title = `${title} | Piscinas Cascais`;
 
     const specs = SPEC_ORDER.filter(k => project.specs[k]).map(k => `
       <div class="row"><dt>${t('pj.spec.' + k, lang)}</dt><dd>${escapeHtml(pick(project.specs[k], lang))}</dd></div>`).join('');
@@ -169,7 +169,7 @@
     const n = photos.length;
     lbIndex = (i + n) % n;
     lbImg.src = photos[lbIndex];
-    lbImg.alt = `${pick(project.title, currentLang)} — ${lbIndex + 1}`;
+    lbImg.alt = `${pick(project.title, currentLang)} (${lbIndex + 1})`;
     lbCount.textContent = `${lbIndex + 1} / ${n}`;
     const single = n < 2;
     lb.querySelector('.lb-prev').hidden = single;
