@@ -272,3 +272,16 @@ footer a{color:var(--ink-soft); text-decoration:underline}
 @media (prefers-reduced-motion: reduce){
   .inline-cta::after, .float-left::after{animation:none; display:none}
 }
+
+/* Brilho nos botões brancos: a mesma faixa, em turquesa, para se ver no fundo branco */
+.inline-cta-soon, .float-right{overflow:hidden}
+.float-right{position:fixed}
+.inline-cta-soon::after, .float-right::after{
+  content:""; position:absolute; top:-30px; bottom:-30px; left:-60%; width:45px;
+  background:linear-gradient(90deg, rgba(18,181,196,.05), rgba(18,181,196,.35));
+  transform:skewX(-22deg); pointer-events:none;
+  animation:shine 3s ease infinite;
+}
+@media (prefers-reduced-motion: reduce){
+  .inline-cta-soon::after, .float-right::after{animation:none; display:none}
+}
